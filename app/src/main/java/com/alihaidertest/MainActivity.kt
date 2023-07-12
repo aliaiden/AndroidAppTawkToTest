@@ -12,10 +12,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-import com.alihaidertest.ui.UsersScreen
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavOptions
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.alihaidertest.feature_github_users.presentation.user_profile.UserProfileScreen
+import com.alihaidertest.feature_github_users.presentation.users.UsersScreen
+import com.alihaidertest.feature_github_users.presentation.util.Screen
 import com.alihaidertest.ui.theme.MyAppTheme
 import com.alihaidertest.viewmodel.MainActivityViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private val viewModel: MainActivityViewModel by viewModels()
 
@@ -28,8 +39,33 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-//                    GreetingText("Happy Birthday to Ali Haider", "Haider")
-                    UsersScreen(viewModel = viewModel)
+                    val navController = rememberNavController()
+                    NavHost(
+                        navController = navController,
+                        startDestination = Screen.UsersScreen.route,
+                        builder = {
+                            composable(route = Screen.UsersScreen.route) {
+                                UsersScreen(navController = navController)
+                            }
+                            composable(
+                                route = Screen.UserProfileScreen.route +
+                                        "?id={id}",
+                                arguments = listOf(
+                                    navArgument(
+                                        name = "id"
+                                    ) {
+                                        type = NavType.IntType
+                                        defaultValue = -1
+                                    }
+                                )
+                            ) {
+                                UserProfileScreen(navController = navController)
+                            }
+                        })
+
+
+////                    GreetingText("Happy Birthday to Ali Haider", "Haider")
+//                    UsersScreen(viewModel = viewModel)
                 }
             }
         }
@@ -37,7 +73,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun GreetingText(message: String, from: String, modifier: Modifier = Modifier){
+fun GreetingText(message: String, from: String, modifier: Modifier = Modifier) {
     Text(text = message, fontSize = 70.sp)
     Text(text = "From: $from")
 }

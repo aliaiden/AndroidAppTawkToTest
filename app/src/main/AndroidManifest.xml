@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApp"
         tools:targetApi="31"
-        android:name=".MainApplication">
+        android:name=".TawkTestApp">
         <activity
             android:name=".MainActivity"
             android:exported="true"
