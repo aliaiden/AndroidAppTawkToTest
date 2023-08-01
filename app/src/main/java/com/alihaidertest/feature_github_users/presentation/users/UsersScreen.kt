@@ -68,13 +68,14 @@ fun UsersScreen(
                 //show list of users with search field at the top
                 Scaffold(topBar = {
 //                        https://techavator.com/create-a-searchview/
-                    SearchField(
-                        modifier = Modifier,
-                        searchKey = state.searchKey,
-                        onValueChange = {
-                            viewModel.onEvent(UsersEvent.SearchUsers(it))
-                        }
-                    )
+
+//                    SearchField(
+//                        modifier = Modifier,
+//                        searchKey = state.searchKey,
+//                        onValueChange = {
+//                            viewModel.onEvent(UsersEvent.SearchUsers(it))
+//                        }
+//                    )
 
                 }) {
 
