@@ -24,11 +24,13 @@ import coil.request.CachePolicy
 import coil.request.ImageRequest
 import coil.transform.CircleCropTransformation
 import com.alihaidertest.feature_github_users.domain.model.User
+import com.alihaidertest.feature_github_users.presentation.util.Screen
 import kotlinx.coroutines.launch
 
 @Composable
 fun UserItem(
     user: User,
+    onItemClick: (User) -> Unit,
     modifier: Modifier,
 ) {
     Card(
@@ -37,6 +39,8 @@ fun UserItem(
             .padding(16.dp)
             .clickable {
                 println("CLICKED")
+                onItemClick(user)
+
 //                coroutineScope.launch {
 //                    if (modalSheetState.isVisible)
 //                        modalSheetState.hide()
@@ -76,10 +80,10 @@ fun UserItem(
                     contentDescription = null,
                     imageLoader = imageLoader
                 )
-                Box(modifier = Modifier.padding(10.dp, 15.dp)){
+                Box(modifier = Modifier.padding(10.dp, 15.dp)) {
 
                     Text(
-                        text = user.login,
+                        text = "${user.id} ${user.login}",
                         style = MaterialTheme.typography.h6
 
                     )

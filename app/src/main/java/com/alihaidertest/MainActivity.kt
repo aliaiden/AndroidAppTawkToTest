@@ -19,7 +19,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.alihaidertest.feature_github_users.presentation.user_profile.UserProfileScreen
 import com.alihaidertest.feature_github_users.presentation.users.UsersScreen
 import com.alihaidertest.feature_github_users.presentation.util.Screen
 import com.alihaidertest.ui.theme.MyAppTheme
@@ -47,20 +46,20 @@ class MainActivity : ComponentActivity() {
                             composable(route = Screen.UsersScreen.route) {
                                 UsersScreen(navController = navController)
                             }
-                            composable(
-                                route = Screen.UserProfileScreen.route +
-                                        "?id={id}",
-                                arguments = listOf(
-                                    navArgument(
-                                        name = "id"
-                                    ) {
-                                        type = NavType.IntType
-                                        defaultValue = -1
-                                    }
-                                )
-                            ) {
-                                UserProfileScreen(navController = navController)
-                            }
+//                            composable(
+//                                route = Screen.UserProfileScreen.route +
+//                                        "?username={username}",
+//                                arguments = listOf(
+//                                    navArgument(
+//                                        name = "username"
+//                                    ) {
+//                                        type = NavType.StringType
+//                                        defaultValue = ""
+//                                    }
+//                                )
+//                            ) {
+//                                UserProfileScreen(navController = navController)
+//                            }
                         })
 
 

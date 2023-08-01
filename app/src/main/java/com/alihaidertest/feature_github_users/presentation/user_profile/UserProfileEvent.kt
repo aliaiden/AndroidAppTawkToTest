@@ -6,4 +6,6 @@ sealed class UserProfileEvent{
     data class EnteredNote(val value: String): UserProfileEvent()
     data class ChangeNoteFocus(val focusState: FocusState): UserProfileEvent()
     object SaveNote: UserProfileEvent()
+    object SavedNote: UserProfileEvent()
+    object EmptyNoteEntered: UserProfileEvent()
 }

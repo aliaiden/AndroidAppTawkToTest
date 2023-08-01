@@ -3,6 +3,7 @@ package com.alihaidertest.feature_github_users.data.remote.dto
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.alihaidertest.feature_github_users.domain.model.User
+import com.alihaidertest.feature_github_users.domain.model.UserProfile
 
 @Entity
 data class UserDto(
@@ -25,9 +26,27 @@ data class UserDto(
     val subscriptions_url: String,
     val type: String,
     val url: String,
-    var notes: String,
+    var notes: String = "",
     var pageID: Int
-)
+) {
+    fun toUserProfile(): UserProfile {
+        return UserProfile(
+            id = id,
+            created_at = "",
+            login = login,
+            type = type,
+            html_url = html_url,
+            name = "",
+            email = "",
+            bio = "",
+            avatar_url = avatar_url,
+            location = "",
+            twitter_username = "",
+            url = url,
+            notes = notes
+        )
+    }
+}
 
 fun UserDto.toUser(): User {
     return User(
@@ -36,8 +55,8 @@ fun UserDto.toUser(): User {
         html_url = html_url,
         url = url,
         type = type,
-        notes = notes,
+        notes = "",
         avatar_url = avatar_url,
-        pageID = -1,
+        pageID = pageID,
     )
 }

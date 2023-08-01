@@ -1,7 +1,9 @@
-package com.alihaidertest.di
+package com.alihaidertest.feature_github_users.di
 
 import android.app.Application
 import androidx.room.Room
+import com.alihaidertest.feature_github_users.common.ConnectivityObserver
+import com.alihaidertest.feature_github_users.common.NetworkConnectivityObserver
 import com.alihaidertest.feature_github_users.data.remote.AppAPI
 import com.alihaidertest.feature_github_users.data.repository.UserRepositoryImpl
 import com.alihaidertest.feature_github_users.data.source.UserDatabase
@@ -81,6 +83,11 @@ object UserModule {
     @Singleton
     fun provideSearchUsersUseCase(repository: UserRepository): SearchUsersUseCase {
         return SearchUsersUseCase(repository)
+    }
+    @Provides
+    @Singleton
+    fun provideConnectivityObserver(app: Application): ConnectivityObserver {
+        return NetworkConnectivityObserver(app)
     }
 
 }

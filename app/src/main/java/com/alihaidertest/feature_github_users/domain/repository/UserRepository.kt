@@ -1,7 +1,9 @@
 package com.alihaidertest.feature_github_users.domain.repository
 
 import com.alihaidertest.feature_github_users.data.remote.dto.UserDto
+import com.alihaidertest.feature_github_users.data.remote.dto.UserProfileDto
 import com.alihaidertest.feature_github_users.domain.model.User
+import com.alihaidertest.feature_github_users.domain.model.UserProfile
 import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
@@ -9,6 +11,7 @@ interface UserRepository {
     suspend fun getPageUsers(pageID: Int): List<UserDto>
     fun getUsersBySearchKeyword(searchKey: String): List<UserDto>
     suspend fun getUserById(id: Int): UserDto
-    fun insertUser(user: UserDto)
+    suspend fun insertUser(user: UserDto)
     suspend fun insertUserNotes(id: Int, notes: String)
+    suspend fun getUserByUsername(username: String): UserProfile
 }

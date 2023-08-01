@@ -37,8 +37,34 @@ data class UserProfileDto(
     val twitter_username: String,
     val type: String,
     val updated_at: String,
-    val url: String
-)
+    val url: String,
+    val pageID: Int = -1,
+) {
+    fun toUserDto(): UserDto {
+        return UserDto(
+            id = id,
+            avatar_url = avatar_url,
+            events_url = events_url,
+            followers_url = followers_url,
+            following_url = following_url,
+            gists_url = gists_url,
+            gravatar_id = gravatar_id,
+            html_url = html_url,
+            login = login,
+            node_id = node_id,
+            notes = "",
+            type = type,
+            pageID = pageID,
+            organizations_url = organizations_url,
+            received_events_url = received_events_url,
+            repos_url = repos_url,
+            site_admin = site_admin,
+            starred_url = starred_url,
+            subscriptions_url = subscriptions_url,
+            url = url
+        )
+    }
+}
 
 fun UserProfileDto.toUserProfile(): UserProfile {
     return UserProfile(

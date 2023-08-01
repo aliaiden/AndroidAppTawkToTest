@@ -16,6 +16,6 @@ interface AppAPI {
     @GET("users")
     suspend fun getGithubUsers(@Query("since") pageID: Int? = 0): List<UserDto>
 
-    @GET("user/{username}")
-    suspend fun getGithubUsers(@Path("username") username: String? = ""): UserProfileDto
+    @GET("users/{username}")
+    suspend fun getGithubUser(@Path("username") username: String? = ""): UserProfileDto
 }

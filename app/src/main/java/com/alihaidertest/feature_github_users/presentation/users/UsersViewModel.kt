@@ -1,15 +1,24 @@
 package com.alihaidertest.feature_github_users.presentation.users
 
 import android.util.Log
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.alihaidertest.feature_github_users.common.ConnectivityObserver
 import com.alihaidertest.feature_github_users.common.Resource
 import com.alihaidertest.feature_github_users.domain.use_case.GetUsersUseCase
 import com.alihaidertest.feature_github_users.domain.use_case.SearchUsersUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -18,7 +27,8 @@ import javax.inject.Inject
 @HiltViewModel
 class UsersViewModel @Inject constructor(
     private val getUsersUseCase: GetUsersUseCase,
-    private val searchUsersUseCase: SearchUsersUseCase
+    private val searchUsersUseCase: SearchUsersUseCase,
+    private val connectivityObserver: ConnectivityObserver
 ) : ViewModel() {
 
     private val _state = mutableStateOf(UsersState())
@@ -30,6 +40,7 @@ class UsersViewModel @Inject constructor(
 
     //first time screen is opened
     init {
+        getConnectivity()
         getUsers(0)
     }
 
@@ -54,15 +65,16 @@ class UsersViewModel @Inject constructor(
         }
     }
 
-    private fun getUsers(pageID: Int) {
+    fun getUsers(pageID: Int) {
         getUsersJob?.cancel()
 
         viewModelScope.launch {
             getUsersUseCase(pageID)
-                .onEach { result ->
+                .collect { result ->
                     when (result) {
                         is Resource.Success -> {
-                            _state.value = UsersState(users = result.data ?: emptyList())
+                            _state.value =
+                                UsersState(users = _state.value.users + result.data.orEmpty())
                         }
 
                         is Resource.Error -> {
@@ -71,10 +83,29 @@ class UsersViewModel @Inject constructor(
                         }
 
                         is Resource.Loading -> {
-                            _state.value = UsersState(isLoading = true)
+                            if (pageID == 0)
+                                _state.value = UsersState(isLoading = true)
                         }
                     }
                 }
         }
     }
+
+    fun getConnectivity() {
+        viewModelScope.launch {
+            connectivityObserver.observe().collect() { result ->
+                _state.value = UsersState(networkStatus = "Internet Connection: ${result.name}")
+//                    ConnectivityObserver.Status.Unavailable -> {
+//
+//                    }
+//                    ConnectivityObserver.Status.Available -> {
+//
+//                    }
+//                    ConnectivityObserver.Status.Lost -> {
+//
+//                    }
+            }
+        }
+    }
+
 }

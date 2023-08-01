@@ -19,14 +19,15 @@ class GetUsersUseCase @Inject constructor(
         try {
             Log.d("users", "loading")
 
-//            emit(Resource.Loading())
-//            val users = repository.getPageUsers(pageID).map { it.toUser() }
-            val users = repository.getUsers().map { it.toUser() }
+            emit(Resource.Loading())
+            val users = repository.getPageUsers(pageID).map { it.toUser() }
+//            val users = repository.getUsers().map { it.toUser() }
             Log.d("users", users.toString())
-            emit(Resource.Success(users))
-        } catch (e: HttpException){
+            if (users.isEmpty()) emit(Resource.Error("No data stored offline", users))
+            else emit(Resource.Success(users))
+        } catch (e: HttpException) {
 
-        } catch (e: IOException){
+        } catch (e: IOException) {
 
         }
     }
