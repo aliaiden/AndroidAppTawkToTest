@@ -12,7 +12,6 @@ import com.alihaidertest.feature_github_users.domain.use_case.AddUserNoteUseCase
 import com.alihaidertest.feature_github_users.domain.use_case.GetUserUseCase
 import com.alihaidertest.feature_github_users.domain.use_case.GetUsersUseCase
 import com.alihaidertest.feature_github_users.domain.use_case.SearchUsersUseCase
-import com.alihaidertest.network.RetrofitInstance
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -22,12 +22,10 @@ import androidx.navigation.navArgument
 import com.alihaidertest.feature_github_users.presentation.users.UsersScreen
 import com.alihaidertest.feature_github_users.presentation.util.Screen
 import com.alihaidertest.ui.theme.MyAppTheme
-import com.alihaidertest.viewmodel.MainActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    private val viewModel: MainActivityViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

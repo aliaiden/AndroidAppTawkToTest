@@ -6,8 +6,6 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.alihaidertest.feature_github_users.data.remote.dto.UserDto
 import com.alihaidertest.feature_github_users.data.remote.dto.UserProfileDto
-import com.alihaidertest.feature_github_users.domain.model.User
-import com.alihaidertest.model.UsersResponse
 
 @Database(entities = [UserDto::class, UserProfileDto::class], version = 1, exportSchema = false)
 abstract class UserDatabase : RoomDatabase() {

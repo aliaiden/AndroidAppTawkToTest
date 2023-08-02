@@ -2,9 +2,6 @@ package com.alihaidertest.feature_github_users.data.remote
 
 import com.alihaidertest.feature_github_users.data.remote.dto.UserDto
 import com.alihaidertest.feature_github_users.data.remote.dto.UserProfileDto
-import com.alihaidertest.feature_github_users.domain.model.User
-import com.alihaidertest.model.UsersResponse
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

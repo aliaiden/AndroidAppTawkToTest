@@ -5,8 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.alihaidertest.feature_github_users.data.remote.dto.UserDto
-import com.alihaidertest.feature_github_users.domain.model.User
-import com.alihaidertest.model.UsersResponse
 import kotlinx.coroutines.flow.Flow
 
 @Dao
